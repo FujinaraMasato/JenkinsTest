@@ -1,0 +1,29 @@
+#!/usr/bin/expect
+
+
+#puts
+puts "pust command = print"
+
+#argv
+set len [llength $argv]
+puts "argv len :$argv0 argv $len"
+
+set ip [lindex $argv 0]
+set port [lindex $argv 1]
+set user [lindex $argv 2]
+set passwd [lindex $argv 3]
+set timeout -1
+puts "IP:$ip\tPORT:$port\tUSER:$user\tPASSWD:$passwd"
+
+spawn ssh -p $port $user@$ip
+
+expect {
+	"yes/no" {
+		send "yes\r" 
+	}
+	"assword:" {
+		send "masato123\r"
+	}
+}
+
+interact
